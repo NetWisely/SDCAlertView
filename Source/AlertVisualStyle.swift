@@ -122,6 +122,9 @@ open class AlertVisualStyle: NSObject {
     @objc
     public var actionSheetNormalFont = UIFont.systemFont(ofSize: 20)
 
+    @objc
+    public var actionSheetVerticalSectionSpacing: CGFloat = 8
+
     /// The color that dims the surrounding background of the alert to make it stand out more.
     @objc
     public var dimmingColor: UIColor = {
@@ -134,7 +137,9 @@ open class AlertVisualStyle: NSObject {
         }
     }()
 
-    var blurEffect: UIBlurEffect {
+    /// enable blur effect
+    public var blurEnable: Bool = true
+    public var blurEffect: UIBlurEffect {
         if #available(iOS 13, *) {
             return UIBlurEffect(style: .systemMaterial)
         } else if #available(iOS 10, *) {
@@ -145,7 +150,7 @@ open class AlertVisualStyle: NSObject {
     }
 
     /// The style of the alert.
-    private let alertStyle: AlertControllerStyle
+    public let alertStyle: AlertControllerStyle
 
     @objc
     public init(alertStyle: AlertControllerStyle) {

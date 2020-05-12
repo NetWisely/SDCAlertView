@@ -28,10 +28,11 @@ final class ActionSheetCancelActionView: UIView {
         self.action = cancelAction
         self.visualStyle = visualStyle
 
-        self.layer.cornerRadius = visualStyle.cornerRadius
-        self.layer.masksToBounds = true
+        self.backgroundColor = visualStyle.backgroundColor
 
-        self.addBlurBackground(effect: visualStyle.blurEffect)
+        if visualStyle.blurEnable {
+            self.addBlurBackground(effect: visualStyle.blurEffect)
+        }
         self.addCancelButton(action: cancelAction, visualStyle: visualStyle)
     }
 

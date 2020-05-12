@@ -2,12 +2,10 @@ import UIKit
 
 class Transition: NSObject, UIViewControllerTransitioningDelegate {
 
-    private let alertStyle: AlertControllerStyle
-    private let dimmingViewColor: UIColor
+    private let visualStyle: AlertVisualStyle
 
-    init(alertStyle: AlertControllerStyle, dimmingViewColor: UIColor) {
-        self.alertStyle = alertStyle
-        self.dimmingViewColor = dimmingViewColor
+    init(visualStyle: AlertVisualStyle) {
+        self.visualStyle = visualStyle
     }
 
     func presentationController(forPresented presented: UIViewController,
@@ -16,14 +14,14 @@ class Transition: NSObject, UIViewControllerTransitioningDelegate {
     {
         return PresentationController(presentedViewController: presented,
                                       presenting: presenting,
-                                      dimmingViewColor: dimmingViewColor)
+                                      dimmingViewColor: self.visualStyle.dimmingColor)
     }
 
     func animationController(forPresented presented: UIViewController,
         presenting: UIViewController, source: UIViewController)
         -> UIViewControllerAnimatedTransitioning?
     {
-        if self.alertStyle == .actionSheet {
+        if self.visualStyle.alertStyle == .actionSheet {
             return nil
         }
 
@@ -31,6 +29,6 @@ class Transition: NSObject, UIViewControllerTransitioningDelegate {
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self.alertStyle == .alert ? AnimationController(presentation: false) : nil
+        return self.visualStyle.alertStyle == .alert ? AnimationController(presentation: false) : nil
     }
 }

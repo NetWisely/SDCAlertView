@@ -28,6 +28,10 @@ final class ActionSheetView: UIView, AlertControllerViewRepresentable {
 
     func prepareLayout() {
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = self.visualStyle.backgroundColor
+        self.layer.cornerRadius = self.visualStyle.cornerRadius
+        self.layer.masksToBounds = true
+
         self.addSubview(self.primaryView)
         self.addSubview(self.cancelView)
 
@@ -39,16 +43,22 @@ final class ActionSheetView: UIView, AlertControllerViewRepresentable {
                                    visualStyle: self.visualStyle)
 
 
+        let spacing = self.visualStyle.actionSheetVerticalSectionSpacing
+        let bottom: CGFloat
+        if #available(iOS 11, *) {
+            bottom = UIApplication.shared.keyWindow!.safeAreaInsets.bottom + self.visualStyle.cornerRadius
+        } else {
+            bottom = self.visualStyle.cornerRadius
+        }
         NSLayoutConstraint.activate([
             self.primaryView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.primaryView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.primaryView.topAnchor.constraint(equalTo: self.topAnchor),
-
-            self.primaryView.bottomAnchor.constraint(equalTo: self.cancelView.topAnchor, constant: -8),
+            self.primaryView.bottomAnchor.constraint(equalTo: self.cancelView.topAnchor, constant: -spacing),
 
             self.cancelView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.cancelView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.cancelView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.cancelView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -bottom),
         ])
     }
 

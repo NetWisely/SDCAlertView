@@ -36,10 +36,12 @@ final class ActionsCollectionView: UICollectionView {
 
     init() {
         super.init(frame: .zero, collectionViewLayout: ActionsCollectionViewFlowLayout())
-        self.dataSource = self
         self.delegate = self
+        self.dataSource = self
         self.backgroundColor = .clear
         self.delaysContentTouches = false
+        self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
         self.translatesAutoresizingMaskIntoConstraints = false
 
         self.collectionViewLayout.register(ActionSeparatorView.self,

@@ -67,9 +67,12 @@ final class AlertView: UIView, AlertControllerViewRepresentable {
     }
 
     func prepareLayout() {
+        self.backgroundColor = self.visualStyle.backgroundColor
         self.actionsCollectionView.actions = self.actions
         self.actionsCollectionView.visualStyle = self.visualStyle
 
+        self.scrollView.showsVerticalScrollIndicator = false
+        self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.scrollView)
 
@@ -161,10 +164,10 @@ final class AlertView: UIView, AlertControllerViewRepresentable {
         let insets = UIEdgeInsets(top: 0, left: contentPadding.left, bottom: 0, right: -contentPadding.right)
 
         NSLayoutConstraint.activate([
-            self.titleLabel.firstBaselineAnchor.constraint(equalTo: self.topAnchor,
+            self.titleLabel.firstBaselineAnchor.constraint(equalTo: self.scrollView.topAnchor,
                                                            constant: contentPadding.top),
             self.titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: insets.left),
-            self.titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: insets.right),
+            self.titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: insets.right)
         ])
     }
 
